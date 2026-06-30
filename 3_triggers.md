@@ -35,14 +35,13 @@ BEGIN
  IF TG_OP = 'UPDATE' AND OLD.encomenda_id <> NEW.encomenda_id THEN
  UPDATE encomenda
  SET valor = (
- SELECT COALESCE(
- SUM(m.custo + LENGTH(i.frase) * m.valor_letra),
- 0.00
- )
- FROM item i
- JOIN placa p ON p.id = i.placa_id
- JOIN material m ON m.id = p.material_id
- WHERE i.encomenda_id = OLD.encomenda_id
+  SELECT COALESCE(
+   SUM(m.custo + LENGTH(i.frase) * m.valor_letra), 0.00
+  )
+  FROM item i
+   JOIN placa p ON p.id = i.placa_id
+   JOIN material m ON m.id = p.material_id
+  WHERE i.encomenda_id = OLD.encomenda_id
  )
  WHERE id = OLD.encomenda_id;
  END IF;
