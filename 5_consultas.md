@@ -32,7 +32,7 @@ SELECT
  c.nome AS cliente
 FROM encomenda e
 JOIN cliente c ON c.id = e.cliente_id
-WHERE c.nome = 'Ana Silva'
+WHERE c.nome = 'Fabiano Gabardo'
  AND e.situacao = 'Aberta'
  AND e.valor > 0
 ORDER BY e.data;
