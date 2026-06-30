@@ -20,15 +20,14 @@ BEGIN
 
  UPDATE encomenda
  SET valor = (
- SELECT COALESCE(
- SUM(m.custo + LENGTH(i.frase) * m.valor_letra),
- 0.00 
- )
+  SELECT COALESCE(
+    SUM(m.custo + LENGTH(i.frase) * m.valor_letra), 0.00 
+  )
  -- Coalese pq ele tenta pegar sum, se ficar null, retorna 0.00 msm, como um operador ternario
- FROM item i
- JOIN placa p ON p.id = i.placa_id
- JOIN material m ON m.id = p.material_id
- WHERE i.encomenda_id = val_enc_id
+  FROM item i
+  JOIN placa p ON p.id = i.placa_id
+  JOIN material m ON m.id = p.material_id
+  WHERE i.encomenda_id = val_enc_id
  )
  WHERE id = val_enc_id;
 
